@@ -49,14 +49,14 @@ class Mailman:
 
     def get_credentials(self):
         try:
-            run_docker = subprocess.run(
+            run_mailman_cmd = subprocess.run(
                 ["mailman", "info"],
                 stdout=subprocess.PIPE,
                 stderr=subprocess.DEVNULL,
                 check=True,
                 text=True
             )
-            for line in run_docker.stdout.splitlines():
+            for line in run_mailman_cmd.stdout.splitlines():
                 if "REST credentials:" in line:
                     credentials = line.split("REST credentials:")[1].strip()
                     self.user, self.password = credentials.split(":", 1)
